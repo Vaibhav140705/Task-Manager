@@ -66,10 +66,6 @@ TaskManager/
 |----------|----------|
 | admin | admin |
 
-## 📸 Screenshots
-
-_Add screenshots here._
-
 ## 👨‍💻 Author
 
 **Vaibhav Dikshit**
