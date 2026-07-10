@@ -1,0 +1,1348 @@
+/* ==========================================================
+   TASK MANAGER DASHBOARD
+   Part 1
+   Reset + Variables + Navbar + Layout + Statistics
+========================================================== */
+
+/* Google Font */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+/* ==========================================================
+   CSS Variables
+========================================================== */
+
+:root{
+
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+
+    --secondary:#0ea5e9;
+
+    --success:#22c55e;
+
+    --warning:#f59e0b;
+
+    --danger:#ef4444;
+
+    --gray:#6b7280;
+
+    --light:#f8fafc;
+
+    --white:#ffffff;
+
+    --border:#e5e7eb;
+
+    --shadow:0 8px 25px rgba(0,0,0,.08);
+
+    --radius:16px;
+
+}
+
+
+/* ==========================================================
+   Reset
+========================================================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:'Poppins',sans-serif;
+
+}
+
+
+body{
+
+    background:#eef2ff;
+
+    color:#1f2937;
+
+}
+
+
+/* ==========================================================
+   Scrollbar
+========================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#b8c0d6;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#eef2ff;
+
+}
+
+
+/* ==========================================================
+   Navbar
+========================================================== */
+
+.navbar{
+
+    background:linear-gradient(
+        90deg,
+        #2563eb,
+        #1d4ed8
+    );
+
+    color:white;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 40px;
+
+    box-shadow:var(--shadow);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+}
+
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+
+.logo i{
+
+    font-size:28px;
+
+}
+
+
+.nav-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+}
+
+
+.welcome{
+
+    font-size:15px;
+
+}
+
+
+.logout-btn{
+
+    background:white;
+
+    color:var(--primary);
+
+    padding:10px 18px;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+
+.logout-btn:hover{
+
+    background:#f3f4f6;
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ==========================================================
+   Main Container
+========================================================== */
+
+.container{
+
+    max-width:1400px;
+
+    margin:auto;
+
+    padding:30px;
+
+}
+
+
+/* ==========================================================
+   Cards
+========================================================== */
+
+.card{
+
+    background:white;
+
+    border-radius:var(--radius);
+
+    padding:24px;
+
+    margin-bottom:30px;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+.card h2{
+
+    margin-bottom:20px;
+
+}
+
+
+/* ==========================================================
+   Statistics Grid
+========================================================== */
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:22px;
+
+    margin-bottom:30px;
+
+}
+
+
+/* ==========================================================
+   Statistic Cards
+========================================================== */
+
+.stat-card{
+
+    text-align:center;
+
+    transition:.3s;
+
+    cursor:pointer;
+
+}
+
+
+.stat-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+
+.stat-card h3{
+
+    color:var(--gray);
+
+    margin-bottom:15px;
+
+    font-size:17px;
+
+    font-weight:500;
+
+}
+
+
+.stat-card h1{
+
+    font-size:46px;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+}
+
+
+/* Colored top border */
+
+.stat-card:nth-child(1){
+
+    border-top:6px solid var(--primary);
+
+}
+
+.stat-card:nth-child(2){
+
+    border-top:6px solid var(--success);
+
+}
+
+.stat-card:nth-child(3){
+
+    border-top:6px solid var(--warning);
+
+}
+
+.stat-card:nth-child(4){
+
+    border-top:6px solid var(--danger);
+
+}
+
+
+/* ==========================================================
+   Section Animation
+========================================================== */
+
+.card{
+
+    animation:fadeUp .45s ease;
+
+}
+
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(18px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================================
+   TASK MANAGER DASHBOARD
+   Part 2
+   Task Form + Buttons + Toolbar
+========================================================== */
+
+
+/* ==========================================================
+   Task Form
+========================================================== */
+
+.task-form{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:20px;
+
+}
+
+
+.task-form textarea{
+
+    grid-column:1/-1;
+
+    resize:vertical;
+
+    min-height:100px;
+
+}
+
+
+/* ==========================================================
+   Inputs
+========================================================== */
+
+.task-form input,
+.task-form select,
+.task-form textarea{
+
+    width:100%;
+
+    padding:14px 16px;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    background:white;
+
+    font-size:15px;
+
+    transition:.25s;
+
+    outline:none;
+
+}
+
+
+.task-form input:focus,
+.task-form select:focus,
+.task-form textarea:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+
+}
+
+
+/* ==========================================================
+   Placeholder
+========================================================== */
+
+.task-form input::placeholder,
+.task-form textarea::placeholder{
+
+    color:#9ca3af;
+
+}
+
+
+/* ==========================================================
+   Dropdown
+========================================================== */
+
+.task-form select{
+
+    cursor:pointer;
+
+}
+
+
+/* ==========================================================
+   Date Picker
+========================================================== */
+
+.task-form input[type="date"]{
+
+    cursor:pointer;
+
+}
+
+
+/* ==========================================================
+   Submit Button
+========================================================== */
+
+.primary-btn{
+
+    background:var(--primary);
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:14px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+
+.primary-btn:hover{
+
+    background:var(--primary-dark);
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 20px rgba(37,99,235,.18);
+
+}
+
+
+.primary-btn:active{
+
+    transform:scale(.98);
+
+}
+
+
+.primary-btn i{
+
+    margin-right:8px;
+
+}
+
+
+/* ==========================================================
+   Toolbar
+========================================================== */
+
+.toolbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:18px;
+
+    flex-wrap:wrap;
+
+}
+
+
+/* ==========================================================
+   Search Box
+========================================================== */
+
+#searchInput{
+
+    flex:1;
+
+    min-width:280px;
+
+    padding:14px 18px;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    outline:none;
+
+    font-size:15px;
+
+    transition:.25s;
+
+}
+
+
+#searchInput:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+
+}
+
+
+/* ==========================================================
+   Status Filter
+========================================================== */
+
+#statusFilter{
+
+    width:220px;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    border:1px solid var(--border);
+
+    cursor:pointer;
+
+    outline:none;
+
+    transition:.25s;
+
+}
+
+
+#statusFilter:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+
+}
+
+
+/* ==========================================================
+   Form Heading
+========================================================== */
+
+.card h2{
+
+    color:#111827;
+
+    margin-bottom:22px;
+
+    font-weight:600;
+
+}
+
+
+/* ==========================================================
+   Nice Hover
+========================================================== */
+
+.card:hover{
+
+    transform:translateY(-2px);
+
+    transition:.25s;
+
+}
+
+
+/* ==========================================================
+   Optional Form Labels
+========================================================== */
+
+.form-label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#374151;
+
+    font-weight:500;
+
+}
+
+
+/* ==========================================================
+   Responsive Form
+========================================================== */
+
+@media(max-width:768px){
+
+    .task-form{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .toolbar{
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+    #statusFilter{
+
+        width:100%;
+
+    }
+
+}
+
+/* ==========================================================
+   TASK MANAGER DASHBOARD
+   Part 3
+   Task Table + Badges + Empty State
+========================================================== */
+
+
+/* ==========================================================
+   Table Container
+========================================================== */
+
+.table-container{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    border-radius:14px;
+
+}
+
+
+/* ==========================================================
+   Table
+========================================================== */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:1000px;
+
+}
+
+
+thead{
+
+    background:var(--primary);
+
+    color:white;
+
+    position:sticky;
+
+    top:70px;
+
+    z-index:5;
+
+}
+
+
+th{
+
+    padding:18px;
+
+    text-align:left;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    white-space:nowrap;
+
+}
+
+
+td{
+
+    padding:18px;
+
+    border-bottom:1px solid #edf2f7;
+
+    vertical-align:middle;
+
+    font-size:14px;
+
+}
+
+
+tbody tr{
+
+    transition:.25s;
+
+}
+
+
+tbody tr:nth-child(even){
+
+    background:#fafbff;
+
+}
+
+
+tbody tr:hover{
+
+    background:#eef4ff;
+
+}
+
+
+/* ==========================================================
+   Priority Badges
+========================================================== */
+
+.priority{
+
+    display:inline-block;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    color:white;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    text-align:center;
+
+    min-width:80px;
+
+}
+
+
+.priority.high{
+
+    background:#ef4444;
+
+}
+
+
+.priority.medium{
+
+    background:#f59e0b;
+
+}
+
+
+.priority.low{
+
+    background:#22c55e;
+
+}
+
+
+/* ==========================================================
+   Status Badges
+========================================================== */
+
+.status{
+
+    display:inline-block;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    color:white;
+
+    min-width:110px;
+
+    text-align:center;
+
+}
+
+
+.status.pending{
+
+    background:#f59e0b;
+
+}
+
+
+.status.in-progress{
+
+    background:#3b82f6;
+
+}
+
+
+.status.completed{
+
+    background:#22c55e;
+
+}
+
+
+/* ==========================================================
+   Checkbox
+========================================================== */
+
+input[type="checkbox"]{
+
+    width:20px;
+
+    height:20px;
+
+    cursor:pointer;
+
+    accent-color:var(--success);
+
+    transform:scale(1.15);
+
+}
+
+
+/* ==========================================================
+   Delete Button
+========================================================== */
+
+.delete-btn{
+
+    width:38px;
+
+    height:38px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    transition:.25s;
+
+    margin:auto;
+
+}
+
+
+.delete-btn:hover{
+
+    background:#dc2626;
+
+    color:white;
+
+    transform:scale(1.08);
+
+}
+
+
+/* ==========================================================
+   Empty State
+========================================================== */
+
+.empty-state{
+
+    text-align:center;
+
+    padding:70px 20px;
+
+    color:#6b7280;
+
+}
+
+
+.empty-state i{
+
+    font-size:72px;
+
+    color:#cbd5e1;
+
+    margin-bottom:20px;
+
+}
+
+
+.empty-state h2{
+
+    margin-bottom:10px;
+
+    color:#374151;
+
+}
+
+
+.empty-state p{
+
+    font-size:15px;
+
+}
+
+
+/* ==========================================================
+   Small Utility Classes
+========================================================== */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+
+.text-right{
+
+    text-align:right;
+
+}
+
+
+.text-muted{
+
+    color:#6b7280;
+
+}
+
+
+/* ==========================================================
+   Description Column
+========================================================== */
+
+td:nth-child(5){
+
+    max-width:260px;
+
+    word-break:break-word;
+
+    color:#4b5563;
+
+}
+
+
+/* ==========================================================
+   Deadline Column
+========================================================== */
+
+td:nth-child(4){
+
+    white-space:nowrap;
+
+    font-weight:500;
+
+}
+
+
+/* ==========================================================
+   Nice Table Shadow
+========================================================== */
+
+.table-container{
+
+    box-shadow:0 4px 18px rgba(0,0,0,.04);
+
+}
+
+
+/* ==========================================================
+   Hover Animation
+========================================================== */
+
+tbody tr{
+
+    animation:fadeRow .35s ease;
+
+}
+
+
+@keyframes fadeRow{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(8px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================================
+   TASK MANAGER DASHBOARD
+   Part 4
+   Responsive + Polish + Animations
+========================================================== */
+
+
+/* ==========================================================
+   Smooth Transitions
+========================================================== */
+
+button,
+input,
+select,
+textarea,
+a,
+.card,
+tr{
+
+    transition:all .25s ease;
+
+}
+
+
+/* ==========================================================
+   Better Focus Visibility
+========================================================== */
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus{
+
+    outline:none;
+
+}
+
+
+/* ==========================================================
+   Card Hover
+========================================================== */
+
+.card:hover{
+
+    box-shadow:0 15px 35px rgba(0,0,0,.10);
+
+}
+
+
+/* ==========================================================
+   Table Row Animation
+========================================================== */
+
+tbody tr{
+
+    animation:tableFade .4s ease;
+
+}
+
+
+@keyframes tableFade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(12px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+/* ==========================================================
+   Button Hover
+========================================================== */
+
+button:hover{
+
+    cursor:pointer;
+
+}
+
+
+/* ==========================================================
+   Links
+========================================================== */
+
+a{
+
+    text-decoration:none;
+
+}
+
+
+/* ==========================================================
+   Images
+========================================================== */
+
+img{
+
+    max-width:100%;
+
+}
+
+
+/* ==========================================================
+   Tablet
+========================================================== */
+
+@media (max-width:992px){
+
+    .container{
+
+        padding:20px;
+
+    }
+
+    .navbar{
+
+        padding:18px 22px;
+
+    }
+
+}
+
+
+/* ==========================================================
+   Mobile
+========================================================== */
+
+@media (max-width:768px){
+
+    .navbar{
+
+        flex-direction:column;
+
+        gap:18px;
+
+        text-align:center;
+
+    }
+
+    .nav-right{
+
+        flex-direction:column;
+
+        gap:12px;
+
+    }
+
+    .stats-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .card{
+
+        padding:18px;
+
+    }
+
+    .table-container{
+
+        overflow-x:auto;
+
+    }
+
+    table{
+
+        min-width:900px;
+
+    }
+
+}
+
+
+/* ==========================================================
+   Small Phones
+========================================================== */
+
+@media (max-width:500px){
+
+    .container{
+
+        padding:12px;
+
+    }
+
+    .logo{
+
+        font-size:20px;
+
+    }
+
+    .logo i{
+
+        font-size:24px;
+
+    }
+
+    .welcome{
+
+        font-size:14px;
+
+    }
+
+    .logout-btn{
+
+        width:100%;
+
+        text-align:center;
+
+    }
+
+    .primary-btn{
+
+        width:100%;
+
+    }
+
+}
+
+
+/* ==========================================================
+   Nice Selection Color
+========================================================== */
+
+::selection{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+
+/* ==========================================================
+   Disabled Button
+========================================================== */
+
+button:disabled{
+
+    opacity:.7;
+
+    cursor:not-allowed;
+
+}
+
+
+/* ==========================================================
+   Fade In
+========================================================== */
+
+body{
+
+    animation:pageFade .5s ease;
+
+}
+
+
+@keyframes pageFade{
+
+    from{
+
+        opacity:0;
+
+    }
+
+    to{
+
+        opacity:1;
+
+    }
+
+}

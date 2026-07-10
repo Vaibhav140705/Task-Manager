@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Task Management Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- ================= Navbar ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <i class="fa-solid fa-list-check"></i>
+
+        <span>Task Manager</span>
+
+    </div>
+
+    <div class="nav-right">
+
+        <span class="welcome">
+
+            Welcome,
+            <strong>{{ username }}</strong>
+
+        </span>
+
+        <a
+            href="{{ url_for('auth.logout') }}"
+            class="logout-btn">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= Container ================= -->
+
+<div class="container">
+
+    <!-- Statistics -->
+
+    <section class="stats-grid">
+
+        <div class="card stat-card">
+
+            <h3>Total Tasks</h3>
+
+            <h1>{{ total_tasks }}</h1>
+
+        </div>
+
+        <div class="card stat-card">
+
+            <h3>Completed</h3>
+
+            <h1>{{ completed_tasks }}</h1>
+
+        </div>
+
+        <div class="card stat-card">
+
+            <h3>Pending</h3>
+
+            <h1>{{ pending_tasks }}</h1>
+
+        </div>
+
+        <div class="card stat-card">
+
+            <h3>Overdue</h3>
+
+            <h1>{{ overdue_tasks }}</h1>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Completion Progress</h3>
+
+            <progress
+                id="progressBar"
+                value="{{ completed_tasks }}"
+                max="{{ total_tasks if total_tasks > 0 else 1 }}"
+                style="width:100%;height:22px;">
+
+            </progress>
+
+            <p
+                style="margin-top:10px;font-weight:600;">
+
+                {{ completed_tasks }} / {{ total_tasks }} Tasks Completed
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= Add Task ================= -->
+
+    <section class="card">
+
+        <h2>Add New Task</h2>
+
+        <form
+            action="{{ url_for('task.add_task') }}"
+            method="POST"
+            class="task-form">
+
+            <select
+                name="task"
+                required>
+
+                {% for option in task_options %}
+
+                <option value="{{ option }}">
+                    {{ option }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+            <input
+                type="text"
+                name="assigned_to"
+                placeholder="Assigned To"
+                required>
+
+            <select
+                name="priority">
+
+                {% for priority in priority_options %}
+
+                <option value="{{ priority }}">
+                    {{ priority }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+            <input
+                type="date"
+                name="deadline"
+                required>
+
+            <textarea
+                name="description"
+                rows="3"
+                placeholder="Task Description (Optional)"></textarea>
+
+            <select
+                name="status">
+
+                {% for status in status_options %}
+
+                <option value="{{ status }}">
+                    {{ status }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+            <button
+                type="submit"
+                class="primary-btn">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Add Task
+
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- ================= Search ================= -->
+
+    <section class="card">
+
+        <div class="toolbar">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search task or assigned person...">
+
+            <select id="statusFilter">
+
+                <option value="All">
+                    All Status
+                </option>
+
+                <option value="Pending">
+                    Pending
+                </option>
+
+                <option value="In Progress">
+                    In Progress
+                </option>
+
+                <option value="Completed">
+                    Completed
+                </option>
+
+            </select>
+
+            <button
+                type="button"
+                class="primary-btn"
+                onclick="exportTableToCSV('tasks.csv')">
+
+                <i class="fa-solid fa-download"></i>
+
+                Export CSV
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= Task Table ================= -->
+
+    <section class="card">
+
+        <h2>Task List</h2>
+
+        {% if tasks %}
+
+        <div class="table-container">
+
+            <table id="taskTable">
+
+                <thead>
+
+                <tr>
+
+                    <th>Task</th>
+
+                    <th>Assigned To</th>
+
+                    <th>Priority</th>
+
+                    <th>Deadline</th>
+
+                    <th>Description</th>
+
+                    <th>Status</th>
+
+                    <th>Done</th>
+
+                    <th>Delete</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for task in tasks %}
+
+                <tr>
+
+                    <td>{{ task["task"] }}</td>
+
+                    <td>{{ task["assigned_to"] }}</td>
+
+                    <td>
+
+                        <span class="priority {{ task['priority']|lower }}">
+
+                            {{ task["priority"] }}
+
+                        </span>
+
+                    </td>
+
+                    <td>{{ task["deadline"] }}</td>
+
+                    <td>{{ task["description"] }}</td>
+
+                    <td>
+
+                        <span class="status {{ task['status']|lower|replace(' ','-') }}">
+
+                            {{ task["status"] }}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <input
+                            type="checkbox"
+
+                            {% if task["completed"] %}
+                            checked
+                            {% endif %}
+
+                            onchange="window.location.href='/toggle/{{ task['id'] }}'">
+
+                    </td>
+
+                    <td>
+
+                        <a
+
+                            href="/delete/{{ task['id'] }}"
+
+                            onclick="return confirm('Delete this task?')"
+
+                            class="delete-btn">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+
+            <i class="fa-solid fa-folder-open"></i>
+
+            <h2>No Tasks Yet</h2>
+
+            <p>Create your first task using the form above.</p>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+</body>
+
+</html>

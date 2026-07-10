@@ -1,0 +1,420 @@
+/* ===========================
+   Google Font
+=========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+/* ===========================
+   Variables
+=========================== */
+
+:root{
+
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+
+    --white:#ffffff;
+
+    --glass:rgba(255,255,255,.18);
+
+    --border:rgba(255,255,255,.25);
+
+    --shadow:0 15px 40px rgba(0,0,0,.20);
+
+    --danger:#ef4444;
+
+}
+
+
+/* ===========================
+   Reset
+=========================== */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+
+}
+
+
+/* ===========================
+   Body
+=========================== */
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    position:relative;
+
+    background:linear-gradient(
+        -45deg,
+        #2563eb,
+        #4f46e5,
+        #06b6d4,
+        #1e3a8a
+    );
+
+    background-size:400% 400%;
+
+    animation:gradientMove 15s ease infinite;
+
+}
+
+
+/* ===========================
+   Animated Background
+=========================== */
+
+@keyframes gradientMove{
+
+    0%{
+
+        background-position:0% 50%;
+
+    }
+
+    50%{
+
+        background-position:100% 50%;
+
+    }
+
+    100%{
+
+        background-position:0% 50%;
+
+    }
+
+}
+
+
+.background{
+
+    position:absolute;
+
+    width:100%;
+
+    height:100%;
+
+    backdrop-filter:blur(6px);
+
+}
+
+
+/* ===========================
+   Login Card
+=========================== */
+
+.login-container{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:25px;
+
+}
+
+
+.login-card{
+
+    width:420px;
+
+    background:var(--glass);
+
+    border:1px solid var(--border);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:22px;
+
+    box-shadow:var(--shadow);
+
+    padding:40px;
+
+    animation:fadeUp .8s ease;
+
+}
+
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(35px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+/* ===========================
+   Logo
+=========================== */
+
+.logo{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+}
+
+
+.logo i{
+
+    font-size:60px;
+
+    color:white;
+
+    margin-bottom:15px;
+
+}
+
+
+.logo h1{
+
+    color:white;
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+
+.logo p{
+
+    color:#f1f5f9;
+
+    margin-top:8px;
+
+}
+
+
+/* ===========================
+   Flash Message
+=========================== */
+
+.alert{
+
+    padding:12px;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
+
+    text-align:center;
+
+    color:white;
+
+    font-size:14px;
+
+}
+
+.alert.danger{
+
+    background:var(--danger);
+
+}
+
+
+/* ===========================
+   Input Groups
+=========================== */
+
+.input-group{
+
+    margin-bottom:22px;
+
+}
+
+
+.input-group label{
+
+    color:white;
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+
+    font-weight:500;
+
+}
+
+
+.input-group label i{
+
+    margin-right:6px;
+
+}
+
+
+.input-group input{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    outline:none;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+
+.input-group input:focus{
+
+    box-shadow:0 0 0 3px rgba(255,255,255,.25);
+
+}
+
+
+/* ===========================
+   Password Box
+=========================== */
+
+.password-box{
+
+    position:relative;
+
+}
+
+
+.password-box button{
+
+    position:absolute;
+
+    right:14px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    color:#555;
+
+    font-size:16px;
+
+}
+
+
+/* ===========================
+   Login Button
+=========================== */
+
+.login-btn{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:var(--primary);
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+
+.login-btn:hover{
+
+    background:var(--primary-dark);
+
+    transform:translateY(-2px);
+
+}
+
+
+.login-btn i{
+
+    margin-right:8px;
+
+}
+
+
+/* ===========================
+   Footer
+=========================== */
+
+.login-footer{
+
+    margin-top:28px;
+
+    color:white;
+
+    text-align:center;
+
+    font-size:14px;
+
+    opacity:.95;
+
+}
+
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:500px){
+
+    .login-card{
+
+        width:100%;
+
+        padding:28px;
+
+    }
+
+}
